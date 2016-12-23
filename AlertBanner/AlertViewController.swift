@@ -92,7 +92,7 @@ open class AlertBanner: NSObject {
         return win
     }()
 
-    fileprivate let errorVC: AlertViewController = AlertViewController()
+    fileprivate let errorVC: AlertViewController = AlertViewController(nibName: "AlertViewController", bundle: Bundle(for: AlertViewController.self))
 
     fileprivate var timer: Timer?
 
