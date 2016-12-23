@@ -9,58 +9,80 @@
 import UIKit
 import airGiOSTools
 
+/// Font to use on the label in the alert banner.
 public var alertBannerFont: UIFont = .systemFont(ofSize: 14.0)
+
+/// Text color, will be used on all three banner backgrounds.
+public var alertBannerTextColor: UIColor = .white
+
+/// Background colour for level: .error
 public var alertBannerErrorBackgroundColor: UIColor = .red
+
+/// Background colour for level: .warning
 public var alertBannerWarningBackgroundColor: UIColor = .lightGray
+
+/// Background colour for level: .success
 public var alertBannerSuccessBackgroundColor: UIColor = .green
+
+/// Message to display when calling showOfflineError()
 public var offlineAlertBannerMessage: String = NSLocalizedString("NetworkOfflineErrorLabel", comment: "")
+
+/// How long the banner will stay visible.
+public var alertBannerDisplayTime: TimeInterval = 4.0
+
+/// How long the slide up/down will take.
+public var alertBannerAnimationTime: TimeInterval = 0.4
+
+public enum AlertBannerLevel {
+    case error, warning, success
+}
 
 open class AlertBanner: NSObject {
     /// Use the manager singleton to display errors
     open static var manager: AlertBanner = AlertBanner()
 
-    /**
-     Shows an error dropping from the top of the screen, with a 4 second timeout.
-
-     - parameter title: Error message to display
-     - parameter onTap: Do something when the user taps the error
-     */
-    open class func showError(title: String, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
-        Log(title, level: .error, file: file, line: line)
-        manager.show(title: title, style: .error, onTap: onTap)
+    /// Shows an alert banner dropping from the top of the screen.
+    ///
+    /// - Parameters:
+    ///   - message: String message to display in the banner.
+    ///   - level: `AlertBannerLevel` of the alert, defaults to .`error`.
+    ///   - file: Automatically gets file where Alert is being presented, don't provide this.
+    ///   - line: Automatically gets line where Alert is being presented, don't provide this.
+    ///   - onTap: Closure to execute on tapping the banner
+    open class func show(_ message: String, as level: AlertBannerLevel = .error, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
+        switch level {
+        case .error:
+            Log(message, level: .error, file: file, line: line)
+            manager.show(title: message, style: .error, onTap: onTap)
+        case .warning:
+            Log(message, level: .warning, file: file, line: line)
+            manager.show(title: message, style: .warning, onTap: onTap)
+        case .success:
+            Log(message, level: .info, file: file, line: line)
+            manager.show(title: message, style: .success, onTap: onTap)
+        }
     }
 
-    /**
-     Shows an error dropping from the top of the screen, with a 4 second timeout.
-
-     - parameter title: Error message to display
-     - parameter onTap: Do something when the user taps the error
-     */
-    open class func showError(error: Error, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
-        Log(error, level: .error, file: file, line: line)
-        manager.show(title: error.localizedErrorMessage, style: .error, onTap: onTap)
-    }
-
-    /**
-     Shows an orange warning dropping from the top of the screen, with a 4 second timeout.
-
-     - parameter title: Warning message to display
-     - parameter onTap: Do something when the user taps the error
-     */
-    open class func showWarning(title: String, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
-        Log(title, level: .warning, file: file, line: line)
-        manager.show(title: title, style: .warning, onTap: onTap)
-    }
-
-    /**
-     Shows a green message dropping from the top of the screen, with a 4 second timeout.
-
-     - parameter title: Message to display
-     - parameter onTap: Do something when the user taps the error
-     */
-    open class func showSuccess(title: String, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
-        Log(title, level: .info, file: file, line: line)
-        manager.show(title: title, style: .success, onTap: onTap)
+    /// Shows an alert banner dropping from the top of the screen.
+    ///
+    /// - Parameters:
+    ///   - error: Error to display in the banner, using the `localizedErrorMessage` property of the error.
+    ///   - level: `AlertBannerLevel` of the alert, defaults to .`error`.
+    ///   - file: Automatically gets file where Alert is being presented, don't provide this.
+    ///   - line: Automatically gets line where Alert is being presented, don't provide this.
+    ///   - onTap: Closure to execute on tapping the banner
+    open class func show(_ error: Error, as level: AlertBannerLevel = .error, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
+        switch level {
+        case .error:
+            Log(error.localizedErrorMessage, level: .error, file: file, line: line)
+            manager.show(title: error.localizedErrorMessage, style: .error, onTap: onTap)
+        case .warning:
+            Log(error.localizedErrorMessage, level: .warning, file: file, line: line)
+            manager.show(title: error.localizedErrorMessage, style: .warning, onTap: onTap)
+        case .success:
+            Log(error.localizedErrorMessage, level: .info, file: file, line: line)
+            manager.show(title: error.localizedErrorMessage, style: .success, onTap: onTap)
+        }
     }
 
     /**
@@ -81,9 +103,6 @@ open class AlertBanner: NSObject {
     }
 
     //MARK:- Private Implementation
-    fileprivate let displayTime: TimeInterval = 3.0
-    fileprivate let animationTime: TimeInterval = 0.4
-
     fileprivate let window: UIWindow = {
         let win = UIWindow(frame: UIScreen.main.bounds)
         win.backgroundColor = .clear
@@ -124,13 +143,13 @@ open class AlertBanner: NSObject {
         // Reset Timer
         timer?.invalidate()
         timer = nil
-        timer = Timer.scheduledTimer(timeInterval: displayTime, target: self, selector: #selector(hide), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: alertBannerDisplayTime, target: self, selector: #selector(hide), userInfo: nil, repeats: false)
 
         if !visible {
             errorVC.errorTitle.text = title
             showError(true)
         } else {
-            UIView.animate(withDuration: animationTime, animations: {
+            UIView.animate(withDuration: alertBannerAnimationTime, animations: {
                 self.errorVC.errorTitle.text = title
             })
         }
@@ -148,7 +167,7 @@ open class AlertBanner: NSObject {
         self.window.makeKeyAndVisible()
         self.window.isHidden = false
 
-        UIView.animate(withDuration: animationTime, animations: {
+        UIView.animate(withDuration: alertBannerAnimationTime, animations: {
             if vis {
                 self.errorVC.offlineVisibleConstraint.priority = UILayoutPriorityDefaultHigh
                 self.errorVC.offlineHiddenConstraint.priority = UILayoutPriorityDefaultLow
@@ -174,7 +193,7 @@ open class AlertBanner: NSObject {
 
         self.window.isHidden = false
 
-        UIView.animate(withDuration: animationTime, animations: {
+        UIView.animate(withDuration: alertBannerAnimationTime, animations: {
             if visible {
                 self.errorVC.visibleConstraint.priority = UILayoutPriorityDefaultHigh
                 self.errorVC.hiddenConstraint.priority = UILayoutPriorityDefaultLow
@@ -215,14 +234,14 @@ fileprivate class AlertViewController: UIViewController {
         errorBackground.isUserInteractionEnabled = true
         errorBackground.backgroundColor = alertBannerErrorBackgroundColor
 
-        errorTitle.textColor = .white
+        errorTitle.textColor = alertBannerTextColor
         errorTitle.font = alertBannerFont
         errorTitle.numberOfLines = 0
         errorTitle.textAlignment = .center
 
         offlineErrorBackground.backgroundColor = alertBannerErrorBackgroundColor
 
-        offlineErrorTitle.textColor = .white
+        offlineErrorTitle.textColor = alertBannerTextColor
         offlineErrorTitle.font = alertBannerFont
         offlineErrorTitle.numberOfLines = 0
         offlineErrorTitle.textAlignment = .center
