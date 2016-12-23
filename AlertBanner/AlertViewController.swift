@@ -15,9 +15,9 @@ public var alertBannerWarningBackgroundColor: UIColor = .lightGray
 public var alertBannerSuccessBackgroundColor: UIColor = .green
 public var offlineAlertBannerMessage: String = NSLocalizedString("NetworkOfflineErrorLabel", comment: "")
 
-class AlertBanner: NSObject {
+open class AlertBanner: NSObject {
     /// Use the manager singleton to display errors
-    internal static var manager: AlertBanner = AlertBanner()
+    open static var manager: AlertBanner = AlertBanner()
 
     /**
      Shows an error dropping from the top of the screen, with a 4 second timeout.
@@ -25,7 +25,7 @@ class AlertBanner: NSObject {
      - parameter title: Error message to display
      - parameter onTap: Do something when the user taps the error
      */
-    internal class func showError(title: String, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
+    open class func showError(title: String, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
         Log(title, level: .error, file: file, line: line)
         manager.show(title: title, style: .error, onTap: onTap)
     }
@@ -36,7 +36,7 @@ class AlertBanner: NSObject {
      - parameter title: Error message to display
      - parameter onTap: Do something when the user taps the error
      */
-    internal class func showError(error: Error, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
+    open class func showError(error: Error, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
         Log(error, level: .error, file: file, line: line)
         manager.show(title: error.localizedErrorMessage, style: .error, onTap: onTap)
     }
@@ -47,7 +47,7 @@ class AlertBanner: NSObject {
      - parameter title: Warning message to display
      - parameter onTap: Do something when the user taps the error
      */
-    internal class func showWarning(title: String, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
+    open class func showWarning(title: String, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
         Log(title, level: .warning, file: file, line: line)
         manager.show(title: title, style: .warning, onTap: onTap)
     }
@@ -58,7 +58,7 @@ class AlertBanner: NSObject {
      - parameter title: Message to display
      - parameter onTap: Do something when the user taps the error
      */
-    internal class func showSuccess(title: String, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
+    open class func showSuccess(title: String, file: String = #file, line: Int = #line, onTap:(()->Void)? = nil) {
         Log(title, level: .info, file: file, line: line)
         manager.show(title: title, style: .success, onTap: onTap)
     }
@@ -66,16 +66,16 @@ class AlertBanner: NSObject {
     /**
      Hide the error immediately
      */
-    internal class func hide() {
+    open class func hide() {
         AlertBanner.manager.showError(false)
     }
 
-    internal class func showOfflineError() {
+    open class func showOfflineError() {
         Log("AlertBanner showing offline", level: .error, file: #file, line: #line)
         AlertBanner.manager.showOffline(visible: true)
     }
 
-    internal class func hideOfflineError() {
+    open class func hideOfflineError() {
         Log("AlertBanner hiding offline", level: .info, file: #file, line: #line)
         AlertBanner.manager.showOffline(visible: false)
     }
@@ -196,7 +196,7 @@ class AlertBanner: NSObject {
     }
 }
 
-class AlertViewController: UIViewController {
+fileprivate class AlertViewController: UIViewController {
     @IBOutlet weak var errorTitle: UILabel!
     @IBOutlet weak var errorBackground: UIView!
     @IBOutlet weak var hiddenConstraint: NSLayoutConstraint!
