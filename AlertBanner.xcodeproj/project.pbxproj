@@ -14,6 +14,7 @@
 		744627E91E0DA29900C8B79B /* AlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 744627E71E0DA29900C8B79B /* AlertViewController.xib */; };
 		744627EB1E0DA50500C8B79B /* BannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744627EA1E0DA50500C8B79B /* BannerError.swift */; };
 		744627F41E0DAF5F00C8B79B /* airGiOSTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744627F31E0DAF5F00C8B79B /* airGiOSTools.framework */; };
+		744A5D9D1E2961A400ABE737 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 744A5D9C1E2961A400ABE737 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		744627E71E0DA29900C8B79B /* AlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertViewController.xib; sourceTree = "<group>"; };
 		744627EA1E0DA50500C8B79B /* BannerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerError.swift; sourceTree = "<group>"; };
 		744627F31E0DAF5F00C8B79B /* airGiOSTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = airGiOSTools.framework; path = Carthage/Build/iOS/airGiOSTools.framework; sourceTree = "<group>"; };
+		744A5D9C1E2961A400ABE737 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				744627E61E0DA29900C8B79B /* AlertViewController.swift */,
 				744627E71E0DA29900C8B79B /* AlertViewController.xib */,
 				744627EA1E0DA50500C8B79B /* BannerError.swift */,
+				744A5D9C1E2961A400ABE737 /* Localizable.strings */,
 			);
 			path = AlertBanner;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				744627E91E0DA29900C8B79B /* AlertViewController.xib in Resources */,
+				744A5D9D1E2961A400ABE737 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

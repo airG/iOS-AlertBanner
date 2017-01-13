@@ -24,8 +24,8 @@ public var alertBannerWarningBackgroundColor: UIColor = .lightGray
 /// Background colour for level: .success
 public var alertBannerSuccessBackgroundColor: UIColor = .green
 
-/// Message to display when calling showOfflineError()
-public var offlineAlertBannerMessage: String = NSLocalizedString("NetworkOfflineErrorLabel", comment: "")
+/// Message to display when calling showOfflineError(). Provide your own NetworkOfflineErrorLabel in Localizable.strings
+public var offlineAlertBannerMessage: String = NSLocalizedString("NetworkOfflineErrorLabel", tableName: "Localizable", bundle: Bundle(for: AlertBanner.self), value: "NetworkOfflineErrorLabel", comment: "NetworkOfflineErrorLabel")
 
 /// How long the banner will stay visible.
 public var alertBannerDisplayTime: TimeInterval = 4.0
@@ -129,29 +129,31 @@ open class AlertBanner: NSObject {
      Only for internal use
      */
     fileprivate func show(title: String, style: AlertStyle, onTap:(()->Void)? = nil) {
-        window.makeKeyAndVisible()
+        DispatchQueue.main.async {
+            self.window.makeKeyAndVisible()
 
-        switch style {
-        case .error:
-            errorVC.errorBackground.backgroundColor = alertBannerErrorBackgroundColor
-        case .warning:
-            errorVC.errorBackground.backgroundColor = alertBannerWarningBackgroundColor
-        case .success:
-            errorVC.errorBackground.backgroundColor = alertBannerSuccessBackgroundColor
-        }
+            switch style {
+            case .error:
+                self.errorVC.errorBackground.backgroundColor = alertBannerErrorBackgroundColor
+            case .warning:
+                self.errorVC.errorBackground.backgroundColor = alertBannerWarningBackgroundColor
+            case .success:
+                self.errorVC.errorBackground.backgroundColor = alertBannerSuccessBackgroundColor
+            }
 
-        // Reset Timer
-        timer?.invalidate()
-        timer = nil
-        timer = Timer.scheduledTimer(timeInterval: alertBannerDisplayTime, target: self, selector: #selector(hide), userInfo: nil, repeats: false)
+            // Reset Timer
+            self.timer?.invalidate()
+            self.timer = nil
+            self.timer = Timer.scheduledTimer(timeInterval: alertBannerDisplayTime, target: self, selector: #selector(self.hide), userInfo: nil, repeats: false)
 
-        if !visible {
-            errorVC.errorTitle.text = title
-            showError(true)
-        } else {
-            UIView.animate(withDuration: alertBannerAnimationTime, animations: {
+            if !self.visible {
                 self.errorVC.errorTitle.text = title
-            })
+                self.showError(true)
+            } else {
+                UIView.animate(withDuration: alertBannerAnimationTime, animations: {
+                    self.errorVC.errorTitle.text = title
+                })
+            }
         }
     }
 
@@ -160,8 +162,9 @@ open class AlertBanner: NSObject {
     }
 
     fileprivate func showOffline(visible vis: Bool) {
-        if visible {
-            hide()
+        DispatchQueue.main.async {
+        if self.visible {
+            self.hide()
         }
 
         self.window.makeKeyAndVisible()
@@ -184,34 +187,37 @@ open class AlertBanner: NSObject {
                 self.offlineVisible = true
             }
         })
+        }
     }
 
     fileprivate func showError(_ visible: Bool) {
-        guard !offlineVisible else {
-            return
+        DispatchQueue.main.async {
+            guard !self.offlineVisible else {
+                return
+            }
+
+            self.window.isHidden = false
+
+            UIView.animate(withDuration: alertBannerAnimationTime, animations: {
+                if visible {
+                    self.errorVC.visibleConstraint.priority = UILayoutPriorityDefaultHigh
+                    self.errorVC.hiddenConstraint.priority = UILayoutPriorityDefaultLow
+                } else {
+                    self.errorVC.visibleConstraint.priority = UILayoutPriorityDefaultLow
+                    self.errorVC.hiddenConstraint.priority = UILayoutPriorityDefaultHigh
+                }
+                self.errorVC.view.layoutIfNeeded()
+            }, completion: { (completed) in
+                if completed && !visible {
+                    self.window.isHidden = true
+                    self.timer?.invalidate()
+                    self.timer = nil
+                    self.visible = false
+                } else {
+                    self.visible = true
+                }
+            })
         }
-
-        self.window.isHidden = false
-
-        UIView.animate(withDuration: alertBannerAnimationTime, animations: {
-            if visible {
-                self.errorVC.visibleConstraint.priority = UILayoutPriorityDefaultHigh
-                self.errorVC.hiddenConstraint.priority = UILayoutPriorityDefaultLow
-            } else {
-                self.errorVC.visibleConstraint.priority = UILayoutPriorityDefaultLow
-                self.errorVC.hiddenConstraint.priority = UILayoutPriorityDefaultHigh
-            }
-            self.errorVC.view.layoutIfNeeded()
-        }, completion: { (completed) in
-            if completed && !visible {
-                self.window.isHidden = true
-                self.timer?.invalidate()
-                self.timer = nil
-                self.visible = false
-            } else {
-                self.visible = true
-            }
-        })
     }
 }
 
