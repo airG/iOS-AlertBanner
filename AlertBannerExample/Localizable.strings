@@ -1,9 +1,0 @@
-/* 
-  LocalizedStrings.strings
-  AlertBannerExample
-
-  Created by Steven Thompson on 2017-01-03.
-  Copyright © 2017 airg. All rights reserved.
-*/
-
-"AlertBannerSampleError" = "Displaying a localized string based on an Error enum case!";
