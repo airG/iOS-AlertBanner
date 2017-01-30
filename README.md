@@ -4,7 +4,7 @@ Displays a banner animating from above the status bar, for displaying status mes
 
 Using Carthage, add this line to your Cartfile:
 
-`git "git@gitlab.airg.us:airg-unit/airg-ios-tools.git"`
+`git "git@gitlab.airg.com:airg-unit/alertbanner-ios.git"`
 
 Then run:
 
