@@ -67,7 +67,7 @@
 				744627CE1E0DA0F400C8B79B /* AlertBanner */,
 				744627D91E0DA0F500C8B79B /* AlertBannerTests */,
 				744627CD1E0DA0F400C8B79B /* Products */,
-				744627EE1E0DACDE00C8B79B /* Frameworks */,
+				744627EE1E0DACDE00C8B79B /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,12 +102,12 @@
 			path = AlertBannerTests;
 			sourceTree = "<group>";
 		};
-		744627EE1E0DACDE00C8B79B /* Frameworks */ = {
+		744627EE1E0DACDE00C8B79B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				744627F31E0DAF5F00C8B79B /* airGiOSTools.framework */,
 			);
-			name = Frameworks;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
