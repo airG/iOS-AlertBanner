@@ -13,7 +13,6 @@
 		744627E81E0DA29900C8B79B /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744627E61E0DA29900C8B79B /* AlertViewController.swift */; };
 		744627E91E0DA29900C8B79B /* AlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 744627E71E0DA29900C8B79B /* AlertViewController.xib */; };
 		744627EB1E0DA50500C8B79B /* BannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744627EA1E0DA50500C8B79B /* BannerError.swift */; };
-		744627F41E0DAF5F00C8B79B /* airGiOSTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744627F31E0DAF5F00C8B79B /* airGiOSTools.framework */; };
 		744A5D9D1E2961A400ABE737 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 744A5D9C1E2961A400ABE737 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -37,7 +36,6 @@
 		744627E61E0DA29900C8B79B /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		744627E71E0DA29900C8B79B /* AlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertViewController.xib; sourceTree = "<group>"; };
 		744627EA1E0DA50500C8B79B /* BannerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerError.swift; sourceTree = "<group>"; };
-		744627F31E0DAF5F00C8B79B /* airGiOSTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = airGiOSTools.framework; path = Carthage/Build/iOS/airGiOSTools.framework; sourceTree = "<group>"; };
 		744A5D9C1E2961A400ABE737 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,7 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				744627F41E0DAF5F00C8B79B /* airGiOSTools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +64,6 @@
 				744627CE1E0DA0F400C8B79B /* AlertBanner */,
 				744627D91E0DA0F500C8B79B /* AlertBannerTests */,
 				744627CD1E0DA0F400C8B79B /* Products */,
-				744627EE1E0DACDE00C8B79B /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,14 +98,6 @@
 			path = AlertBannerTests;
 			sourceTree = "<group>";
 		};
-		744627EE1E0DACDE00C8B79B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				744627F31E0DAF5F00C8B79B /* airGiOSTools.framework */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -131,7 +119,6 @@
 				744627C71E0DA0F400C8B79B /* Sources */,
 				744627C81E0DA0F400C8B79B /* Frameworks */,
 				744627C91E0DA0F400C8B79B /* Headers */,
-				744627F11E0DACF800C8B79B /* ShellScript */,
 				744627CA1E0DA0F400C8B79B /* Resources */,
 			);
 			buildRules = (
@@ -220,23 +207,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		744627F11E0DACF800C8B79B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/airGiOSTools.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		744627C71E0DA0F400C8B79B /* Sources */ = {

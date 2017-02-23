@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import airGiOSTools
 
 /// Font to use on the label in the alert banner.
 public var alertBannerFont: UIFont = .systemFont(ofSize: 14.0)
@@ -32,6 +31,9 @@ public var alertBannerDisplayTime: TimeInterval = 4.0
 
 /// How long the slide up/down will take.
 public var alertBannerAnimationTime: TimeInterval = 0.4
+
+/// Provide a handler if you want to log in a different way than default print()
+public var customLog: ((_ message: String, _ level: AlertBannerLevel, _ file: String, _ line: Int)-> Void)?
 
 public enum AlertBannerLevel {
     case error, warning, success
@@ -58,7 +60,7 @@ open class AlertBanner: NSObject {
             Log(message, level: .warning, file: file, line: line)
             manager.show(title: message, style: .warning, onTap: onTap)
         case .success:
-            Log(message, level: .info, file: file, line: line)
+            Log(message, level: .success, file: file, line: line)
             manager.show(title: message, style: .success, onTap: onTap)
         }
     }
@@ -80,7 +82,7 @@ open class AlertBanner: NSObject {
             Log(error.localizedErrorMessage, level: .warning, file: file, line: line)
             manager.show(title: error.localizedErrorMessage, style: .warning, onTap: onTap)
         case .success:
-            Log(error.localizedErrorMessage, level: .info, file: file, line: line)
+            Log(error.localizedErrorMessage, level: .success, file: file, line: line)
             manager.show(title: error.localizedErrorMessage, style: .success, onTap: onTap)
         }
     }
@@ -98,7 +100,7 @@ open class AlertBanner: NSObject {
     }
 
     open class func hideOfflineError() {
-        Log("AlertBanner hiding offline", level: .info, file: #file, line: #line)
+        Log("AlertBanner hiding offline", level: .success, file: #file, line: #line)
         AlertBanner.manager.showOffline(visible: false)
     }
 
@@ -219,6 +221,28 @@ open class AlertBanner: NSObject {
             })
         }
     }
+
+    fileprivate static func Log(_ message: String, level: AlertBannerLevel, file: String, line: Int) {
+        if let customLog = customLog {
+            customLog(message, level, file, line)
+        } else {
+            let singleFile: String
+            if let f = file.components(separatedBy: "/").last {
+                singleFile = f
+            } else {
+                singleFile = ""
+            }
+
+            let mes = "\(dateFormatter.string(from: NSDate() as Date)) <\(level)> \(singleFile):\(line) - \(message)"
+            print(mes)
+        }
+    }
+
+    fileprivate static let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        return df
+    }()
 }
 
 fileprivate class AlertViewController: UIViewController {
