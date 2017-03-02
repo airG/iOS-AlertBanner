@@ -132,6 +132,11 @@ open class AlertBanner: NSObject {
      */
     fileprivate func show(title: String, style: AlertStyle, onTap:(()->Void)? = nil) {
         DispatchQueue.main.async {
+            // In case the keyboard is shown, adjust the alert window on top of it.
+            if let last = UIApplication.shared.windows.last {
+                self.window.windowLevel = last.windowLevel
+            }
+
             self.window.makeKeyAndVisible()
 
             switch style {
