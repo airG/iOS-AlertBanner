@@ -253,6 +253,7 @@ open class AlertBanner: NSObject {
 fileprivate class AlertViewController: UIViewController {
     @IBOutlet weak var errorTitle: UILabel!
     @IBOutlet weak var errorBackground: UIView!
+    @IBOutlet weak var errorExtraTopSpace: UIView! //Fills the space between the errorBackground and the top of the screen, on a X
     @IBOutlet weak var hiddenConstraint: NSLayoutConstraint!
     @IBOutlet weak var visibleConstraint: NSLayoutConstraint!
 
@@ -268,7 +269,8 @@ fileprivate class AlertViewController: UIViewController {
 
         errorBackground.isUserInteractionEnabled = true
         errorBackground.backgroundColor = alertBannerErrorBackgroundColor
-
+        errorExtraTopSpace.backgroundColor = alertBannerErrorBackgroundColor
+        
         errorTitle.textColor = alertBannerTextColor
         errorTitle.font = alertBannerFont
         errorTitle.numberOfLines = 0
