@@ -127,6 +127,7 @@ open class AlertBanner: NSObject {
     fileprivate enum AlertStyle {
         case error, warning, success
     }
+    
     /**
      Only for internal use
      */
