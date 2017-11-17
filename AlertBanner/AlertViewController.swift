@@ -133,16 +133,16 @@ open class AlertBanner: NSObject {
      */
     fileprivate func show(title: String, style: AlertStyle, onTap:(()->Void)? = nil) {
         DispatchQueue.main.async {
-            if #available(iOS 11.0, *) {
-                self.errorVC.updateLayout(for: self.window.safeAreaInsets)
-            }
-
             // In case the keyboard is shown, adjust the alert window on top of it.
             if let last = UIApplication.shared.windows.last {
                 self.window.windowLevel = last.windowLevel
             }
 
             self.window.makeKeyAndVisible()
+
+            if #available(iOS 11.0, *) {
+                self.errorVC.updateLayout(for: self.window.safeAreaInsets)
+            }
 
             switch style {
             case .error:
@@ -175,16 +175,17 @@ open class AlertBanner: NSObject {
 
     fileprivate func showOffline(visible vis: Bool) {
         DispatchQueue.main.async {
-            if #available(iOS 11.0, *) {
-                self.errorVC.updateLayout(for: self.window.safeAreaInsets)
-            }
             if self.visible {
                 self.hide()
             }
             
             self.window.makeKeyAndVisible()
             self.window.isHidden = false
-            
+
+            if #available(iOS 11.0, *) {
+                self.errorVC.updateLayout(for: self.window.safeAreaInsets)
+            }
+
             UIView.animate(withDuration: alertBannerAnimationTime, animations: {
                 if vis {
                     self.errorVC.offlineVisibleConstraint.priority = UILayoutPriorityDefaultHigh
@@ -207,15 +208,15 @@ open class AlertBanner: NSObject {
     
     fileprivate func showError(_ visible: Bool) {
         DispatchQueue.main.async {
-            if #available(iOS 11.0, *) {
-                self.errorVC.updateLayout(for: self.window.safeAreaInsets)
-            }
-            
             guard !self.offlineVisible else {
                 return
             }
 
             self.window.isHidden = false
+
+            if #available(iOS 11.0, *) {
+                self.errorVC.updateLayout(for: self.window.safeAreaInsets)
+            }
 
             UIView.animate(withDuration: alertBannerAnimationTime, animations: {
                 if visible {
