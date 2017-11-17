@@ -122,10 +122,6 @@ open class AlertBanner: NSObject {
 
     fileprivate override init() {
         window.rootViewController = errorVC
-        
-        if #available(iOS 11.0, *) {
-            errorVC.updateLayout(for: window.safeAreaInsets)
-        }
     }
 
     fileprivate enum AlertStyle {
@@ -136,6 +132,10 @@ open class AlertBanner: NSObject {
      */
     fileprivate func show(title: String, style: AlertStyle, onTap:(()->Void)? = nil) {
         DispatchQueue.main.async {
+            if #available(iOS 11.0, *) {
+                self.errorVC.updateLayout(for: self.window.safeAreaInsets)
+            }
+
             // In case the keyboard is shown, adjust the alert window on top of it.
             if let last = UIApplication.shared.windows.last {
                 self.window.windowLevel = last.windowLevel
@@ -174,35 +174,42 @@ open class AlertBanner: NSObject {
 
     fileprivate func showOffline(visible vis: Bool) {
         DispatchQueue.main.async {
-        if self.visible {
-            self.hide()
-        }
-
-        self.window.makeKeyAndVisible()
-        self.window.isHidden = false
-
-        UIView.animate(withDuration: alertBannerAnimationTime, animations: {
-            if vis {
-                self.errorVC.offlineVisibleConstraint.priority = UILayoutPriorityDefaultHigh
-                self.errorVC.offlineHiddenConstraint.priority = UILayoutPriorityDefaultLow
-            } else {
-                self.errorVC.offlineVisibleConstraint.priority = UILayoutPriorityDefaultLow
-                self.errorVC.offlineHiddenConstraint.priority = UILayoutPriorityDefaultHigh
+            if #available(iOS 11.0, *) {
+                self.errorVC.updateLayout(for: self.window.safeAreaInsets)
             }
-            self.errorVC.view.layoutIfNeeded()
-        }, completion: { completed in
-            if completed && !vis {
-                self.window.isHidden = true
-                self.offlineVisible = false
-            } else {
-                self.offlineVisible = true
+            if self.visible {
+                self.hide()
             }
-        })
+            
+            self.window.makeKeyAndVisible()
+            self.window.isHidden = false
+            
+            UIView.animate(withDuration: alertBannerAnimationTime, animations: {
+                if vis {
+                    self.errorVC.offlineVisibleConstraint.priority = UILayoutPriorityDefaultHigh
+                    self.errorVC.offlineHiddenConstraint.priority = UILayoutPriorityDefaultLow
+                } else {
+                    self.errorVC.offlineVisibleConstraint.priority = UILayoutPriorityDefaultLow
+                    self.errorVC.offlineHiddenConstraint.priority = UILayoutPriorityDefaultHigh
+                }
+                self.errorVC.view.layoutIfNeeded()
+            }, completion: { completed in
+                if completed && !vis {
+                    self.window.isHidden = true
+                    self.offlineVisible = false
+                } else {
+                    self.offlineVisible = true
+                }
+            })
         }
     }
-
+    
     fileprivate func showError(_ visible: Bool) {
         DispatchQueue.main.async {
+            if #available(iOS 11.0, *) {
+                self.errorVC.updateLayout(for: self.window.safeAreaInsets)
+            }
+            
             guard !self.offlineVisible else {
                 return
             }
