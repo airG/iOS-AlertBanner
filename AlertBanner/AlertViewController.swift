@@ -292,18 +292,19 @@ fileprivate class AlertViewController: UIViewController {
         errorBackground.addGestureRecognizer(tapGR)
     }
 
+    @available(iOS 11.0, *)
     func updateLayout(for insets: UIEdgeInsets) {
         // Normally this is pinned to the top of the view, but on X we want to pin to margin to stay in safe area
         if insets != UIEdgeInsets.zero {
             self.visibleConstraint = nil
-            self.visibleConstraint = NSLayoutConstraint(item: errorBackground,
-                                                        attribute: .top,
-                                                        relatedBy: .equal,
-                                                        toItem: view,
-                                                        attribute: .topMargin,
-                                                        multiplier: 1.0, constant: 0.0)
+            self.visibleConstraint = errorBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
             self.visibleConstraint.priority = UILayoutPriorityDefaultLow
             self.visibleConstraint.isActive = true
+            
+            self.offlineErrorBackground = nil
+            self.offlineVisibleConstraint = offlineErrorBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            self.offlineVisibleConstraint.priority = UILayoutPriorityDefaultLow
+            self.offlineVisibleConstraint.isActive = true
         }
     }
 
