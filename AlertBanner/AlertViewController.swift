@@ -122,6 +122,7 @@ open class AlertBanner: NSObject {
 
     fileprivate override init() {
         window.rootViewController = errorVC
+        _ = errorVC.view
     }
 
     fileprivate enum AlertStyle {
