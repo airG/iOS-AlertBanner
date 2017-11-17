@@ -301,6 +301,12 @@ fileprivate class AlertViewController: UIViewController {
     }
 
     func updateLayoutIfNeeded() {
+        print("Window: \(self.view.window)")
+
+        if #available(iOS 11.0, *) {
+            print("Window: \(self.view.window?.safeAreaInsets)")
+            print("\(view.safeAreaLayoutGuide)")
+        }
         // Normally this is pinned to the top of the view, but on X we want to pin to margin to stay in safe area
         if #available(iOS 11.0, *),
             let window = self.view.window,
@@ -309,7 +315,7 @@ fileprivate class AlertViewController: UIViewController {
             self.visibleConstraint = NSLayoutConstraint(item: errorBackground,
                                                         attribute: .top,
                                                         relatedBy: .equal,
-                                                        toItem: self.view,
+                                                        toItem: view,
                                                         attribute: .topMargin,
                                                         multiplier: 1.0, constant: 0.0)
             self.visibleConstraint.priority = UILayoutPriorityDefaultLow
