@@ -271,21 +271,6 @@ fileprivate class AlertViewController: UIViewController {
         errorBackground.backgroundColor = alertBannerErrorBackgroundColor
         errorExtraTopSpace.backgroundColor = alertBannerErrorBackgroundColor
         
-        // Normally this is pinned to the top of the view, but on X we want to pin to margin to stay in safe area
-        if #available(iOS 11.0, *),
-            let window = self.view.window,
-            window.safeAreaInsets != UIEdgeInsets.zero {
-            self.visibleConstraint = nil
-            self.visibleConstraint = NSLayoutConstraint(item: errorBackground,
-                                                        attribute: .top,
-                                                        relatedBy: .equal,
-                                                        toItem: self.view,
-                                                        attribute: .topMargin,
-                                                        multiplier: 1.0, constant: 0.0)
-            self.visibleConstraint.isActive = true
-            self.visibleConstraint.priority = UILayoutPriorityDefaultLow
-        }
-        
         errorTitle.textColor = alertBannerTextColor
         errorTitle.font = alertBannerFont
         errorTitle.numberOfLines = 0
@@ -301,6 +286,25 @@ fileprivate class AlertViewController: UIViewController {
 
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(tapped))
         errorBackground.addGestureRecognizer(tapGR)
+    }
+
+    internal override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Normally this is pinned to the top of the view, but on X we want to pin to margin to stay in safe area
+        if #available(iOS 11.0, *),
+            let window = self.view.window,
+            window.safeAreaInsets != UIEdgeInsets.zero {
+            self.visibleConstraint = nil
+            self.visibleConstraint = NSLayoutConstraint(item: errorBackground,
+                                                        attribute: .top,
+                                                        relatedBy: .equal,
+                                                        toItem: self.view,
+                                                        attribute: .topMargin,
+                                                        multiplier: 1.0, constant: 0.0)
+            self.visibleConstraint.isActive = true
+            self.visibleConstraint.priority = UILayoutPriorityDefaultLow
+        }
     }
 
     func tapped() {
