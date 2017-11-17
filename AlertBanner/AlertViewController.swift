@@ -122,13 +122,10 @@ open class AlertBanner: NSObject {
 
     fileprivate override init() {
         window.rootViewController = errorVC
-        print("Window: \(window)")
         
         if #available(iOS 11.0, *) {
-            print("Window: \(window.safeAreaInsets)")
+            errorVC.updateLayout(for: window.safeAreaInsets)
         }
-
-        errorVC.updateLayoutIfNeeded()
     }
 
     fileprivate enum AlertStyle {
@@ -295,29 +292,9 @@ fileprivate class AlertViewController: UIViewController {
         errorBackground.addGestureRecognizer(tapGR)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        updateLayoutIfNeeded()
-    }
-    
-    internal override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        updateLayoutIfNeeded()
-    }
-
-    func updateLayoutIfNeeded() {
-        print("Window: \(self.view.window)")
-
-        if #available(iOS 11.0, *) {
-            print("Window: \(self.view.window?.safeAreaInsets)")
-            print("\(view.safeAreaLayoutGuide)")
-        }
+    func updateLayout(for insets: UIEdgeInsets) {
         // Normally this is pinned to the top of the view, but on X we want to pin to margin to stay in safe area
-        if #available(iOS 11.0, *),
-            let window = self.view.window,
-            window.safeAreaInsets != UIEdgeInsets.zero {
+        if insets != UIEdgeInsets.zero {
             self.visibleConstraint = nil
             self.visibleConstraint = NSLayoutConstraint(item: errorBackground,
                                                         attribute: .top,
