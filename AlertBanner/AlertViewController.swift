@@ -311,7 +311,7 @@ fileprivate class AlertViewController: UIViewController {
             self.visibleConstraint.priority = UILayoutPriorityDefaultLow
             self.visibleConstraint.isActive = true
             
-            self.offlineErrorBackground = nil
+            self.offlineVisibleConstraint = nil
             self.offlineVisibleConstraint = offlineErrorBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
             self.offlineVisibleConstraint.priority = UILayoutPriorityDefaultLow
             self.offlineVisibleConstraint.isActive = true
