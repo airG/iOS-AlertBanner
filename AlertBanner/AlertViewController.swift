@@ -122,6 +122,13 @@ open class AlertBanner: NSObject {
 
     fileprivate override init() {
         window.rootViewController = errorVC
+        print("Window: \(window)")
+        
+        if #available(iOS 11.0, *) {
+            print("Window: \(window.safeAreaInsets)")
+        }
+
+        errorVC.updateLayoutIfNeeded()
     }
 
     fileprivate enum AlertStyle {
