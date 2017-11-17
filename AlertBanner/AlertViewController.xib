@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -78,7 +77,7 @@
                 <constraint firstAttribute="trailing" secondItem="T78-gx-eg4" secondAttribute="trailing" id="EW8-95-N2D"/>
                 <constraint firstAttribute="trailing" secondItem="4AC-dc-VPi" secondAttribute="trailing" id="GqS-Fj-UfX"/>
                 <constraint firstAttribute="trailing" secondItem="HIo-ED-meI" secondAttribute="trailing" id="S6n-ej-d5H"/>
-                <constraint firstItem="T78-gx-eg4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" priority="250" id="YnO-1u-2J7"/>
+                <constraint firstItem="T78-gx-eg4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" priority="250" id="YnO-1u-2J7"/>
                 <constraint firstAttribute="top" secondItem="4AC-dc-VPi" secondAttribute="bottom" priority="750" id="ZKz-T2-gho"/>
                 <constraint firstItem="4AC-dc-VPi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jzC-Dg-LFb"/>
                 <constraint firstItem="T78-gx-eg4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lQs-l4-3WH"/>
