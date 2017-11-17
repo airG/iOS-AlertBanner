@@ -288,9 +288,19 @@ fileprivate class AlertViewController: UIViewController {
         errorBackground.addGestureRecognizer(tapGR)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateLayoutIfNeeded()
+    }
+    
     internal override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        updateLayoutIfNeeded()
+    }
+
+    func updateLayoutIfNeeded() {
         // Normally this is pinned to the top of the view, but on X we want to pin to margin to stay in safe area
         if #available(iOS 11.0, *),
             let window = self.view.window,
@@ -302,8 +312,8 @@ fileprivate class AlertViewController: UIViewController {
                                                         toItem: self.view,
                                                         attribute: .topMargin,
                                                         multiplier: 1.0, constant: 0.0)
-            self.visibleConstraint.isActive = true
             self.visibleConstraint.priority = UILayoutPriorityDefaultLow
+            self.visibleConstraint.isActive = true
         }
     }
 
