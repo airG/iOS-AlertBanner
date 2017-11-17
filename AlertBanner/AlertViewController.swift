@@ -271,7 +271,10 @@ fileprivate class AlertViewController: UIViewController {
         errorBackground.backgroundColor = alertBannerErrorBackgroundColor
         errorExtraTopSpace.backgroundColor = alertBannerErrorBackgroundColor
         
-        if #available(iOS 11.0, *), view.safeAreaInsets.top > 0 { // Normally this is pinned to the top of the view, but on X we want to pin to margin to stay in safe area
+        // Normally this is pinned to the top of the view, but on X we want to pin to margin to stay in safe area
+        if #available(iOS 11.0, *),
+            let window = self.view.window,
+            window.safeAreaInsets != UIEdgeInsets.zero {
             self.visibleConstraint = nil
             self.visibleConstraint = NSLayoutConstraint(item: errorBackground,
                                                         attribute: .top,
