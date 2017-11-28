@@ -147,10 +147,13 @@ open class AlertBanner: NSObject {
 
             switch style {
             case .error:
+                self.errorVC.errorExtraTopSpace.backgroundColor = alertBannerErrorBackgroundColor
                 self.errorVC.errorBackground.backgroundColor = alertBannerErrorBackgroundColor
             case .warning:
+                self.errorVC.errorExtraTopSpace.backgroundColor = alertBannerWarningBackgroundColor
                 self.errorVC.errorBackground.backgroundColor = alertBannerWarningBackgroundColor
             case .success:
+                self.errorVC.errorExtraTopSpace.backgroundColor = alertBannerSuccessBackgroundColor
                 self.errorVC.errorBackground.backgroundColor = alertBannerSuccessBackgroundColor
             }
 
