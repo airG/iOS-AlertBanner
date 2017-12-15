@@ -1,54 +1,6 @@
 {
   "warnings": [
-    {
-      "file": "/Users/stevent/airG/GitHub repos/alertbanner-ios/AlertBanner/AlertViewController.swift",
-      "line": 38,
-      "symbol": "AlertBannerLevel",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/stevent/airG/GitHub repos/alertbanner-ios/AlertBanner/AlertViewController.swift",
-      "line": 39,
-      "symbol": "AlertBannerLevel.error",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/stevent/airG/GitHub repos/alertbanner-ios/AlertBanner/AlertViewController.swift",
-      "line": 39,
-      "symbol": "AlertBannerLevel.success",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/stevent/airG/GitHub repos/alertbanner-ios/AlertBanner/AlertViewController.swift",
-      "line": 39,
-      "symbol": "AlertBannerLevel.warning",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/stevent/airG/GitHub repos/alertbanner-ios/AlertBanner/AlertViewController.swift",
-      "line": 42,
-      "symbol": "AlertBanner",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/stevent/airG/GitHub repos/alertbanner-ios/AlertBanner/AlertViewController.swift",
-      "line": 97,
-      "symbol": "AlertBanner.showOfflineError()",
-      "symbol_kind": "source.lang.swift.decl.function.method.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/stevent/airG/GitHub repos/alertbanner-ios/AlertBanner/AlertViewController.swift",
-      "line": 102,
-      "symbol": "AlertBanner.hideOfflineError()",
-      "symbol_kind": "source.lang.swift.decl.function.method.class",
-      "warning": "undocumented"
-    }
+
   ],
   "source_directory": "/Users/stevent/airG/GitHub repos/alertbanner-ios"
 }
