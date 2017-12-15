@@ -35,10 +35,17 @@ public var alertBannerAnimationTime: TimeInterval = 0.4
 /// Provide a handler if you want to log in a different way than default print()
 public var customLog: ((_ message: String, _ level: AlertBannerLevel, _ file: String, _ line: Int)-> Void)?
 
+/// Pass this when presenting an error to define the color and log level of a message
 public enum AlertBannerLevel {
-    case error, warning, success
+    /// Error
+    case error
+    /// Warning
+    case warning
+    /// Success
+    case success
 }
 
+/// Use the AlertBanner.manager to display errors. You don't need to create your own instance.
 open class AlertBanner: NSObject {
     /// Use the manager singleton to display errors
     open static var manager: AlertBanner = AlertBanner()
@@ -94,11 +101,13 @@ open class AlertBanner: NSObject {
         AlertBanner.manager.showError(false)
     }
 
+    /// Show the standard offline error
     open class func showOfflineError() {
         Log("AlertBanner showing offline", level: .error, file: #file, line: #line)
         AlertBanner.manager.showOffline(visible: true)
     }
 
+    /// Show the standard online error
     open class func hideOfflineError() {
         Log("AlertBanner hiding offline", level: .success, file: #file, line: #line)
         AlertBanner.manager.showOffline(visible: false)
@@ -192,11 +201,11 @@ open class AlertBanner: NSObject {
 
             UIView.animate(withDuration: alertBannerAnimationTime, animations: {
                 if vis {
-                    self.errorVC.offlineVisibleConstraint.priority = UILayoutPriorityDefaultHigh
-                    self.errorVC.offlineHiddenConstraint.priority = UILayoutPriorityDefaultLow
+                    self.errorVC.offlineVisibleConstraint.priority = UILayoutPriority.defaultHigh
+                    self.errorVC.offlineHiddenConstraint.priority = UILayoutPriority.defaultLow
                 } else {
-                    self.errorVC.offlineVisibleConstraint.priority = UILayoutPriorityDefaultLow
-                    self.errorVC.offlineHiddenConstraint.priority = UILayoutPriorityDefaultHigh
+                    self.errorVC.offlineVisibleConstraint.priority = UILayoutPriority.defaultLow
+                    self.errorVC.offlineHiddenConstraint.priority = UILayoutPriority.defaultHigh
                 }
                 self.errorVC.view.layoutIfNeeded()
             }, completion: { completed in
@@ -224,11 +233,11 @@ open class AlertBanner: NSObject {
 
             UIView.animate(withDuration: alertBannerAnimationTime, animations: {
                 if visible {
-                    self.errorVC.visibleConstraint.priority = UILayoutPriorityDefaultHigh
-                    self.errorVC.hiddenConstraint.priority = UILayoutPriorityDefaultLow
+                    self.errorVC.visibleConstraint.priority = UILayoutPriority.defaultHigh
+                    self.errorVC.hiddenConstraint.priority = UILayoutPriority.defaultLow
                 } else {
-                    self.errorVC.visibleConstraint.priority = UILayoutPriorityDefaultLow
-                    self.errorVC.hiddenConstraint.priority = UILayoutPriorityDefaultHigh
+                    self.errorVC.visibleConstraint.priority = UILayoutPriority.defaultLow
+                    self.errorVC.hiddenConstraint.priority = UILayoutPriority.defaultHigh
                 }
                 self.errorVC.view.layoutIfNeeded()
             }, completion: { (completed) in
@@ -311,17 +320,17 @@ fileprivate class AlertViewController: UIViewController {
         if insets != UIEdgeInsets.zero {
             self.visibleConstraint = nil
             self.visibleConstraint = errorBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-            self.visibleConstraint.priority = UILayoutPriorityDefaultLow
+            self.visibleConstraint.priority = UILayoutPriority.defaultLow
             self.visibleConstraint.isActive = true
             
             self.offlineVisibleConstraint = nil
             self.offlineVisibleConstraint = offlineErrorBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-            self.offlineVisibleConstraint.priority = UILayoutPriorityDefaultLow
+            self.offlineVisibleConstraint.priority = UILayoutPriority.defaultLow
             self.offlineVisibleConstraint.isActive = true
         }
     }
 
-    func tapped() {
+    @objc func tapped() {
         AlertBanner.manager.showError(false)
 
         if let onTap = onTap {
