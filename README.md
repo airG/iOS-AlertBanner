@@ -1,6 +1,6 @@
 # AlertBanner
 
-[![Documentation](https://raw.githubusercontent.com/airG/iOS-AlertBanner/master/docs/badge.svg?sanitize=true)](https://airg.github.io/iOS-airSegmentedControl/)
+[![Documentation](https://raw.githubusercontent.com/airG/iOS-AlertBanner/master/docs/badge.svg?sanitize=true)](https://airg.github.io/iOS-AlertBanner/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Displays a banner animating from above the status bar, for displaying status messages to the user. Limited, you can customize the font, colours, message and timing. Also supports status bar height message for offline error.
@@ -11,7 +11,7 @@ Installation is best managed using Carthage. Add `github "airg/iOS-AlertBanner"`
 
 ## Documentation
 
-Check out the [documentation](https://airg.github.io/ios-AlertBanner/). All calls should also be documented in the generated Swift interface.
+Check out the [documentation](https://airg.github.io/iOS-AlertBanner/). All calls should also be documented in the generated Swift interface.
 
 ## How it's made
 
